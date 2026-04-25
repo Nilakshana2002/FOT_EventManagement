@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venue Management | Admin Panel</title>
+    <link rel="icon" type="image/png" th:href="@{/images/logo1.png}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .admin-card {
+            background: var(--surface);
+            padding: 30px;
+            border-radius: var(--r-md);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--divider);
+            margin-bottom: 35px;
+        }
+        .admin-card h2 {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--pri);
+        }
+        .admin-form input, .admin-form select {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            border: 1.5px solid var(--divider-light);
+            border-radius: var(--r-sm);
+            font-family: inherit;
+            font-size: 0.9rem;
+            background: var(--bg);
+        }
+        .admin-form input:focus {
+            outline: none;
+            border-color: var(--pri);
+            background: #fff;
+        }
+        .admin-form button {
+            background: var(--pri);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: var(--r-sm);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .admin-form button:hover {
+            background: var(--pri-dark);
+            box-shadow: var(--shadow-pri);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>ADMIN PANEL</h2>
+        <a th:href="@{/admin/dashboard}"><i class="fas fa-calendar-check"></i> Manage Bookings</a>
+        <a th:href="@{/admin/venues}" style="background: var(--pri-ghost); color: var(--pri); border-left-color: var(--pri);"><i class="fas fa-building"></i> Manage Venues</a>
+        <a th:href="@{/admin/users}"><i class="fas fa-users"></i> Manage Users</a>
+        <a th:href="@{/admin/news}"><i class="fas fa-newspaper"></i> Manage News</a>
+        <a th:href="@{/admin/events}"><i class="fas fa-image"></i> Manage Events</a>
+        <a th:href="@{/admin/feedback}"><i class="fas fa-comment-dots"></i> Manage Feedback</a>
+        
+        <div style="padding: 20px 24px; margin-top: auto; border-top: 1px solid rgba(0,0,0,0.05);">
+            <a th:href="@{/}" style="font-size: 0.8rem; padding: 10px 0;"><i class="fas fa-arrow-left"></i> Back to Home</a>
+            <a th:href="@{/logout}" style="color: var(--pri); font-weight: 600; padding: 10px 0;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header-section" style="margin-bottom: 30px;">
+            <h1>Venue Management</h1>
+            <p>Add new venues or remove existing ones from the system.</p>
+        </div>
+
+        <!-- Add Venue Form -->
+        <div class="admin-card">
+            <h2><i class="fas fa-plus-circle"></i> Add New Venue</h2>
+            <form th:action="@{/admin/venues/save}" method="post" enctype="multipart/form-data" class="admin-form">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div style="grid-column: span 2;">
+                        <input type="text" name="name" placeholder="Venue Name (e.g., Auditorium Hall)" required>
+                    </div>
+                    <div>
+                        <input type="number" name="capacity" placeholder="Capacity (e.g., 500 seats)" required>
+                    </div>
+                    <div>
+                        <input type="number" name="price" placeholder="Price per Hour (Rs.)" required>
+                    </div>
+                    <div style="grid-column: span 2;">
+                        <label style="display: block; font-weight: 600; margin-bottom: 8px; font-size: 0.85rem; color: var(--ink-secondary);">Venue Image</label>
+                        <input type="file" name="imageFile" required style="padding: 8px 0; background: transparent; border: none;">
+                    </div>
+                </div>
+                <button type="submit">Save Venue Details <i class="fas fa-chevron-right"></i></button>
+            </form>
+        </div>
+
+        <!-- Venue Table -->
+        <div class="admin-card">
+            <h2><i class="fas fa-list"></i> Existing Venues</h2>
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th style="width: 50px;">ID</th>
+                        <th style="width: 120px;">Preview</th>
+                        <th>Venue Name</th>
+                        <th>Capacity</th>
+                        <th>Hourly Rate</th>
+                        <th style="width: 120px;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="v : ${venues}">
+                        <td th:text="${v.id}"></td>
+                        <td>
+                            <img th:src="@{'/images/' + ${v.imageName}}" 
+                                 style="width: 100px; height: 60px; object-fit: cover; border-radius: var(--r-sm); border: 1px solid var(--divider);">
+                        </td>
+                        <td style="font-weight: 600; color: var(--pri);" th:text="${v.name}"></td>
+                        <td th:text="${v.capacity + ' Seats'}"></td>
+                        <td th:text="${'Rs. ' + v.price}"></td>
+                        <td>
+                            <a th:href="@{'/admin/venues/delete/' + ${v.id}}" class="btn-reject"
+                               onclick="return confirm('Delete this venue permanently?')">
+                               <i class="fas fa-trash-alt"></i> Delete
+                            </a>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(venues)}">
+                        <td colspan="6" style="text-align: center; padding: 40px; color: var(--ink-secondary);">
+                            No venues registered yet.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>

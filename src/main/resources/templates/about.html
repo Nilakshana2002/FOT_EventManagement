@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Event Management</title>
+    <link rel="icon" type="image/png" th:href="@{/images/logo1.png}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+<!-- Header -->
+<div th:replace="~{fragments/header :: header}"></div>
+
+<!-- Modern Hero Section -->
+<section class="about-hero">
+    <img th:src="@{/images/image3.png}" alt="Faculty Banner">
+    <div class="about-hero-content">
+        <h1>About Us</h1>
+        <p>Empowering Innovation through Advanced Facilities and Seamless Event Coordination at the Faculty of Technology.</p>
+    </div>
+</section>
+
+<div class="about-container">
+
+
+    <div class="about-split">
+        <div class="about-text">
+            <h2>About the System</h2>
+            <p>
+                The University Event Management System is a state-of-the-art centralized platform developed exclusively for the <strong>Faculty of Technology, University of Ruhuna</strong>.
+            </p>
+            <p>
+                Our mission is to bridge the gap between world-class academic infrastructure and the needs of modern organizations. Whether you are hosting an international seminar, a hands-on workshop, or a corporate meeting, our system ensures a friction-less experience from booking to execution.
+            </p>
+            <p>
+                By digitizing the venue booking process, we enhance transparency, accessibility, and operational efficiency, allowing you to focus on what truly matters: your event's success.
+            </p>
+        </div>
+        <div class="about-image">
+            <img th:src="@{/images/about.png}" alt="About System Image">
+        </div>
+    </div>
+
+
+    <div class="about-card-grid">
+        <div class="about-card">
+            <h3><i class="fas fa-bullseye"></i> Our Purpose</h3>
+            <p>
+                To provide a high-performance environment for academic and professional growth. We streamline coordination, simplify logistics, and offer a transparent platform that serves both internal university members and external corporate partners with equal excellence.
+            </p>
+        </div>
+        <div class="about-card">
+            <h3><i class="fas fa-users"></i> Who Can Use</h3>
+            <p>
+                <strong>Internal Community:</strong> Students, lecturers, and faculty clubs can access specialized spaces for academic projects and extracurricular activities.
+            </p>
+            <p>
+                <strong>External Partners:</strong> Corporate organizations, NGOs, and professional bodies are welcome to utilize our premium venues for workshops and seminars.
+            </p>
+        </div>
+    </div>
+
+
+    <div class="venue-showcase-premium">
+        <h2>Venues</h2>
+        <div class="venue-grid-premium">
+            <div th:each="v : ${venues}" class="venue-card-premium">
+                <div class="v-img-box">
+                    <img th:src="@{'/images/' + ${v.imageName}}" alt="Venue Image">
+                </div>
+                <div class="v-info">
+                    <h3 th:text="${v.name}">Venue Name</h3>
+                    <div class="v-meta">
+                        <span><i class="fas fa-chair"></i> <strong>Capacity:</strong> <span th:text="${v.capacity}"></span></span>
+                        <span><i class="fas fa-tag"></i> <strong>Price:</strong> Rs. <span th:text="${v.price}"></span>/hr</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:if="${#lists.isEmpty(venues)}" class="empty-state" style="text-align: center; padding: 40px; color: var(--ink-muted);">
+            <p>Venue details will be updated soon. Stay tuned!</p>
+        </div>
+    </div>
+
+</div>
+
+<!-- Footer -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<script th:src="@{/js/login.js}"></script>
+</body>
+</html>
