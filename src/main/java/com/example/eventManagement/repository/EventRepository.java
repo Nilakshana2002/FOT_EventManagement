@@ -1,10 +1,9 @@
-package com.example.eventManagement.repository;
+package com.fot.eventsystem.repository;
 
-import com.example.eventManagement.model.Event;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import com.fot.eventsystem.model.Event;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface EventRepository extends MongoRepository<Event, String> {
+public interface EventRepository extends JpaRepository<Event, Long> {
 }
-
