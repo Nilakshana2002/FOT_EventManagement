@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Messages | Admin Panel</title>
+    <link rel="icon" type="image/png" th:href="@{/images/logo1.png}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .request-section {
+            background: var(--surface);
+            padding: 30px;
+            border-radius: var(--r-md);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--divider);
+            margin-bottom: 40px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>ADMIN PANEL</h2>
+        <a th:href="@{/admin/dashboard}"><i class="fas fa-calendar-check"></i> Manage Bookings</a>
+        <a th:href="@{/admin/venues}"><i class="fas fa-building"></i> Manage Venues</a>
+        <a th:href="@{/admin/users}"><i class="fas fa-users"></i> Manage Users</a>
+        <a th:href="@{/admin/news}"><i class="fas fa-newspaper"></i> Manage News</a>
+        <a th:href="@{/admin/posters}"><i class="fas fa-image"></i> Manage Events</a>
+        <a th:href="@{/admin/feedback}" style="background: var(--pri-ghost); color: var(--pri); border-left-color: var(--pri);"><i class="fas fa-comment-dots"></i> Manage Feedback</a>
+        
+        <div style="padding: 20px 24px; margin-top: auto; border-top: 1px solid rgba(0,0,0,0.05);">
+            <a th:href="@{/}" style="font-size: 0.8rem; padding: 10px 0;"><i class="fas fa-arrow-left"></i> Back to Home</a>
+            <a th:href="@{/logout}" style="color: var(--pri); font-weight: 600; padding: 10px 0;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header-section" style="margin-bottom: 30px;">
+            <h1>Feedback & Inquiries</h1>
+            <p>Review messages sent by users through the contact form.</p>
+        </div>
+
+        <div class="request-section">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th style="width: 50px;">ID</th>
+                        <th>Name</th>
+                        <th>Contact Info</th>
+                        <th>Inquiry Type</th>
+                        <th>Message Content</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="f : ${feedbacks}">
+                        <td th:text="${f.id}"></td>
+                        <td style="font-weight: 600; color: var(--pri);" th:text="${f.name}"></td>
+                        <td>
+                            <span th:text="${f.email}"></span><br>
+                            <small style="color: var(--ink-secondary);" th:text="${f.phone != null ? f.phone : 'No Phone'}"></small>
+                        </td>
+                        <td>
+                            <span class="badge badge-pending" th:text="${f.type}"></span>
+                        </td>
+                        <td style="max-width: 400px; font-size: 0.88rem; line-height: 1.6; color: var(--ink-secondary);" th:text="${f.message}"></td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(feedbacks)}">
+                        <td colspan="5" style="text-align: center; padding: 40px; color: var(--ink-secondary);">
+                            <i class="fas fa-inbox" style="font-size: 2rem; display: block; margin-bottom: 10px;"></i>
+                            No feedback messages found.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>

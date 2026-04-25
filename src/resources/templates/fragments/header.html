@@ -1,0 +1,92 @@
+<div th:fragment="header" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+    <!-- MAIN HEADER -->
+    <div class="main-header">
+        <div class="logo-left">
+            <img th:src="@{/images/logo2.png}" alt="University Logo">
+        </div>
+        <div class="title">
+            <h1>Event Management System</h1>
+            <h2>Faculty of Technology</h2>
+            <h3>University of Ruhuna</h3>
+        </div>
+        <div class="logo-right">
+            <img th:src="@{/images/logo1.png}" alt="Faculty Logo">
+        </div>
+    </div>
+
+    <!-- NAVIGATION -->
+    <nav class="navbar">
+        <a th:href="@{/}">HOME</a>
+        <a th:href="@{/about}">ABOUT US</a>
+        <a th:href="@{/calendar}">CALENDAR</a>
+        <a th:href="@{/contact}">CONTACT US</a>
+        <a sec:authorize="isAuthenticated()" th:href="@{/my-registrations}">MY REGISTRATIONS</a>
+        <a sec:authorize="isAuthenticated()" th:href="@{/booking}">BOOK A VENUE</a>
+        <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/admin/dashboard}">ADMIN PANEL</a>
+        <a sec:authorize="isAnonymous()" href="#" onclick="openLogin()">SIGN UP / LOGIN</a>
+        <a sec:authorize="isAuthenticated()" th:href="@{/logout}" style="color: var(--primary); font-weight: 700;">LOGOUT</a>
+    </nav>
+
+    <!-- ═══════ LOGIN MODAL ═══════ -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLogin()">&times;</span>
+            <div class="modal-logos">
+                <img th:src="@{/images/logo2.png}" alt="logo">
+                <img th:src="@{/images/flogo.png}" alt="logo">
+            </div>
+            <h2>Welcome Back</h2>
+
+            <form th:action="@{/login}" method="post">
+                <input type="text" name="username" placeholder="Enter Registration Number (TG / AC)" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <button type="submit">LOGIN</button>
+            </form>
+            <p>
+                Don't have an account?
+                <a href="#" onclick="showSignup()" style="color: var(--primary); font-weight: 600;">Create one</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- ═══════ SIGNUP MODAL ═══════ -->
+    <div id="signupModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeSignup()">&times;</span>
+            <div class="modal-logos">
+                <img th:src="@{/images/logo2.png}" alt="logo">
+                <img th:src="@{/images/flogo.png}" alt="logo">
+            </div>
+            <h2>Create Account</h2>
+
+            <div class="user-type">
+                <button type="button" id="btnStudent" class="active" onclick="showStudentForm()">Student</button>
+                <button type="button" id="btnStaff" onclick="showStaffForm()">Academic / Staff</button>
+            </div>
+
+            <!-- REGISTRATION FORM -->
+            <div id="registrationForm">
+                <form th:action="@{/signup}" method="post" onsubmit="return validateRegistration()">
+                    <input type="hidden" name="usertype" id="usertype" value="STUDENT">
+                    
+                    <div id="idFieldContainer">
+                        <input type="text" name="registerno" id="registerno" placeholder="Student Registration No (e.g., TG1234)" required>
+                    </div>
+
+                    <input type="email" name="email" placeholder="Email" required>
+                    <input type="password" name="password" id="regPwd" placeholder="Password" required>
+                    <input type="password" id="regConfirmPwd" placeholder="Confirm Password" required>
+                    <button type="submit" id="regBtn">REGISTER AS STUDENT →</button>
+                    <p id="regError" class="error-text"></p>
+                </form>
+            </div>
+
+            <p>
+                Already have an account?
+                <a href="#" onclick="showLogin()" style="color: var(--primary); font-weight: 600;">Login instead</a>
+            </p>
+        </div>
+    </div>
+
+</div>
