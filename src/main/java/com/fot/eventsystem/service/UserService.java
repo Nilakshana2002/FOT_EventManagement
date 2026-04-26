@@ -70,7 +70,7 @@ public class UserService {
     }
 
     public User findByRegisterno(String registerno) {
-        return userRepository.findByRegisterno(registerno);
+        return userRepository.findByRegisternoIgnoreCase(registerno);
     }
 
     public List<User> getAllUsers() {

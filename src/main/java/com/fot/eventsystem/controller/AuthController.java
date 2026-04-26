@@ -35,11 +35,11 @@ public class AuthController {
 
 
         if (user.getUsertype() != null && user.getUsertype().equals("STUDENT")) {
-            if (user.getRegisterno() == null || !user.getRegisterno().matches("^[A-Z]{2}\\d{4}$")) {
+            if (user.getRegisterno() == null || !user.getRegisterno().matches("^(?i)[A-Z]{2}\\d{4}$")) {
                 return "redirect:/?regError=true";
             }
         } else if (user.getUsertype() != null && user.getUsertype().equals("STAFF")) {
-            if (user.getRegisterno() == null || !user.getRegisterno().startsWith("AC")) {
+            if (user.getRegisterno() == null || !user.getRegisterno().toUpperCase().startsWith("AC")) {
                 return "redirect:/?regError=true";
             }
         } else {

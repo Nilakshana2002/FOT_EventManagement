@@ -52,14 +52,14 @@ function validateRegistration() {
 
     // Category-specific Registration Number Validation
     if (userType === 'STUDENT') {
-        let studentPattern = /^[A-Z]{2}\d{4}$/; // Standard Student Format (e.g., TG1234)
+        let studentPattern = /^[a-zA-Z]{2}\d{4}$/; // Standard Student Format (e.g., TG1234)
         if (!studentPattern.test(regNo)) {
             error.innerText = "❌ Invalid Student ID format! (Use e.g., TG1234)";
             return false;
         }
     } else {
-        let staffPattern = /^[A-Z]{2}\d{4}$/; // Assuming same length but different prefix or just ACxxxx
-        if (!regNo.startsWith("AC")) {
+        let staffPattern = /^[a-zA-Z]{2}\d{4}$/; // Assuming same length but different prefix or just ACxxxx
+        if (!regNo.toUpperCase().startsWith("AC")) {
              error.innerText = "❌ Staff ID must start with 'AC'! (Use e.g., AC1234)";
              return false;
         }

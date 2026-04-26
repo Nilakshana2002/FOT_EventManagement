@@ -43,11 +43,11 @@ public class AdminUserController {
             String type = user.getUsertype();
 
             if ("STUDENT".equals(type)) {
-                if (reg == null || !reg.matches("^[A-Z]{2}\\d{4}$") || !reg.startsWith("TG")) {
+                if (reg == null || !reg.toUpperCase().matches("^[A-Z]{2}\\d{4}$") || !reg.toUpperCase().startsWith("TG")) {
                     return "redirect:/admin/users?error=invalidFormat&type=STUDENT";
                 }
             } else if ("STAFF".equals(type) || "ADMIN".equals(type)) {
-                if (reg == null || !reg.startsWith("AC")) {
+                if (reg == null || !reg.toUpperCase().startsWith("AC")) {
                     return "redirect:/admin/users?error=invalidFormat&type=STAFF";
                 }
             }
