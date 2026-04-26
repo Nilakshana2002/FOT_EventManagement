@@ -25,10 +25,10 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
 
     public User registerUser(User user) {
-        // Encrypt password
+
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        // Assign default role (USER)
+
         Role userRole = roleRepository.findByName("USER");
         if (userRole == null) {
             userRole = new Role();
@@ -36,7 +36,7 @@ public class UserService {
             roleRepository.save(userRole);
         }
         user.setRoles(Collections.singleton(userRole));
-        // Keep the usertype set by the controller (STUDENT or STAFF)
+
         if (user.getUsertype() == null) {
             user.setUsertype("STUDENT");
         }
@@ -90,7 +90,7 @@ public class UserService {
             existingUser.setPhoneno(user.getPhoneno());
             existingUser.setOrgname(user.getOrgname());
 
-            // Only update password if a new one is provided (not empty)
+
             if (user.getPassword() != null && !user.getPassword().trim().isEmpty()) {
                 existingUser.setPassword(passwordEncoder.encode(user.getPassword()));
             }

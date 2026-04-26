@@ -9,9 +9,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
-/**
- * RMI REQUIREMENT: Remote Service Implementation
- */
+
 @Component
 public class RemoteAdminServiceImpl extends UnicastRemoteObject implements RemoteAdminService {
 

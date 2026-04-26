@@ -2,10 +2,7 @@ package com.fot.eventsystem.observer;
 
 import com.fot.eventsystem.model.Booking;
 
-/**
- * OBSERVER DESIGN PATTERN: Concrete Observer
- * This observer simulates sending an email notification.
- */
+
 public class EmailNotificationObserver implements BookingObserver {
     
     @Override
