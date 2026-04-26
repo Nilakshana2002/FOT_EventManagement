@@ -320,7 +320,7 @@
         <i class="fas fa-info-circle"></i> This Registration Number is already registered. Please login.
     </div>
     <div th:if="${param.bookingSuccess}" class="toast toast-success">
-        <i class="fas fa-check-circle"></i> Your booking request has been submitted! Track it in "My Registrations".
+        <i class="fas fa-check-circle"></i> Requested to register.
     </div>
 </div>
 
@@ -354,7 +354,7 @@
 <!-- ═══════ QUICK STATS BAR ═══════ -->
 <div class="stats-bar">
     <div class="stat-item">
-        <i class="fas fa-calendar-star"></i>
+        <i class="fas fa-calendar-check"></i>
         <h4>Upcoming Events</h4>
         <p th:text="${#lists.isEmpty(eventList) ? 'None yet' : #lists.size(eventList) + ' Events'}">0 Events</p>
     </div>
