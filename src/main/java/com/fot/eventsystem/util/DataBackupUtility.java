@@ -4,17 +4,12 @@ import com.fot.eventsystem.model.Booking;
 import java.io.*;
 import java.util.List;
 
-/**
- * JAVA SERIALIZATION UTILITY
- * This class demonstrates the concept of Serializing and Deserializing objects to/from a file.
- */
+ 
 public class DataBackupUtility {
 
     private static final String BACKUP_FILE = "system_backup.ser";
 
-    /**
-     * SERIALIZATION: Converts a list of objects into a byte stream and saves it to a file.
-     */
+    
     public static void saveBackup(List<Booking> bookings) {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(BACKUP_FILE))) {
             out.writeObject(bookings);
@@ -27,9 +22,7 @@ public class DataBackupUtility {
         }
     }
 
-    /**
-     * DESERIALIZATION: Reads a byte stream from a file and converts it back into Java objects.
-     */
+     
     @SuppressWarnings("unchecked")
     public static List<Booking> loadBackup() {
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(BACKUP_FILE))) {
