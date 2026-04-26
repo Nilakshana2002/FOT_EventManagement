@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Event Management</title>
+    <link rel="icon" type="image/png" th:href="@{/images/logo1.png}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<section class="contact-section">
+    <div class="overlay">
+        <h1>GET IN TOUCH</h1>
+        <p class="contact-desc">Have questions? We're here to help you coordinate your perfect event.</p>
+
+        <div class="contact-container">
+
+
+            <div class="contact-info">
+                <h2 style="color: var(--primary);">Contact Information</h2>
+                <div style="margin-top: 24px;">
+                    <p style="margin: 14px 0;"><strong>Address</strong><br>
+                        Faculty of Technology, University of Ruhuna,<br>
+                        Karagoda, Uyangoda, Kamburupitiya, Sri Lanka.</p>
+                    <p style="margin: 14px 0;"><strong>Phone</strong><br>+94 41 2294750</p>
+                    <p style="margin: 14px 0;"><strong>Email</strong><br>dean@tec.ruh.ac.lk</p>
+                    <p style="margin: 14px 0;"><strong>Office Hours</strong><br>Mon – Fri, 8:30 AM – 4:30 PM</p>
+                </div>
+                <div style="margin-top: 24px; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow);">
+                    <iframe
+                        src="https://www.google.com/maps?q=Faculty%20of%20Technology%20Ruhuna&output=embed"
+                        width="100%" height="200" style="border:0; display: block;" allowfullscreen="" loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+
+
+            <div class="contact-form">
+                <h2 style="color: var(--primary); margin-bottom: 20px;">Send a Message</h2>
+                <form th:action="@{/contact/save}" method="post">
+                    <input type="text" name="name" placeholder="Full Name" required>
+                    <input type="email" name="email" placeholder="Email Address" required>
+                    <input type="text" name="phone" placeholder="Phone Number (Optional)">
+                    <select name="type">
+                        <option value="Inquiry">General Inquiry</option>
+                        <option value="Complaint">Complaint</option>
+                        <option value="Suggestion">Suggestion / Feedback</option>
+                        <option value="Booking">Booking Related</option>
+                    </select>
+                    <textarea name="message" placeholder="How can we help you?" rows="5" required></textarea>
+                    <button type="submit">SEND MESSAGE →</button>
+
+                    <div th:if="${param.success}" style="margin-top: 16px; padding: 14px; border-radius: var(--radius); background: var(--success-bg); color: var(--success); font-weight: 600; text-align: center;">
+                        Thank you! Your message has been sent successfully.
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<script th:src="@{/js/login.js}"></script>
+</body>
+</html>
