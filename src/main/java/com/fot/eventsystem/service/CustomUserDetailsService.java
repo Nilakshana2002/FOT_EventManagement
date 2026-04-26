@@ -19,7 +19,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String registerno) throws UsernameNotFoundException {
-        User user = userRepository.findByRegisterno(registerno);
+        User user = userRepository.findByRegisternoIgnoreCase(registerno);
         if (user == null) {
             throw new UsernameNotFoundException("User not found with Registration Number: " + registerno);
         }
