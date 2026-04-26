@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<!-- Header -->
+
 <div th:replace="~{fragments/header :: header}"></div>
 
 <section class="contact-section">
@@ -19,7 +19,7 @@
 
         <div class="contact-container">
 
-            <!-- Contact Info -->
+
             <div class="contact-info">
                 <h2 style="color: var(--primary);">Contact Information</h2>
                 <div style="margin-top: 24px;">
@@ -38,7 +38,7 @@
                 </div>
             </div>
 
-            <!-- Contact Form -->
+
             <div class="contact-form">
                 <h2 style="color: var(--primary); margin-bottom: 20px;">Send a Message</h2>
                 <form th:action="@{/contact/save}" method="post">
@@ -64,7 +64,7 @@
     </div>
 </section>
 
-<!-- Footer -->
+
 <div th:replace="~{fragments/footer :: footer}"></div>
 
 <script th:src="@{/js/login.js}"></script>

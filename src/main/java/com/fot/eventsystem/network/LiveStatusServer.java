@@ -8,10 +8,7 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-/**
- * NETWORK PROGRAMMING & THREADING DEMONSTRATION
- * This class runs a Socket Server on a separate background Thread.
- */
+
 @Component
 public class LiveStatusServer {
 

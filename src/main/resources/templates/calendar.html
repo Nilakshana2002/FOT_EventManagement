@@ -11,10 +11,10 @@
 </head>
 <body>
 
-<!-- Header Fragment -->
+
 <div th:replace="~{fragments/header :: header}"></div>
 
-<!-- ═══════ CALENDAR HERO ═══════ -->
+
 <section class="calendar-hero">
     <div class="calendar-hero-content">
         <i class="fas fa-calendar-alt"></i>
@@ -23,11 +23,11 @@
     </div>
 </section>
 
-<!-- ═══════ CALENDAR SECTION ═══════ -->
+
 <section class="calendar-section">
     <div class="calendar-wrapper">
 
-        <!-- Calendar Main -->
+
         <div class="calendar-main">
             <div class="calendar-header">
                 <button id="prevMonth" class="cal-nav-btn" aria-label="Previous month">
@@ -42,17 +42,17 @@
                 </button>
             </div>
 
-            <!-- Day names row -->
+
             <div class="cal-days-header">
                 <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span>
                 <span>Thu</span><span>Fri</span><span>Sat</span>
             </div>
 
-            <!-- Calendar grid -->
+
             <div id="calendarGrid" class="cal-grid"></div>
         </div>
 
-        <!-- Sidebar: selected day events -->
+
         <div class="calendar-sidebar" id="calendarSidebar">
             <div class="sidebar-header">
                 <h3 id="sidebarDate">Select a date</h3>
@@ -68,7 +68,7 @@
 
     </div>
 
-    <!-- Legend -->
+
     <div class="cal-legend">
         <div class="legend-item">
             <span class="legend-dot legend-event"></span> Events
@@ -79,7 +79,7 @@
     </div>
 </section>
 
-<!-- Footer Fragment -->
+
 <div th:replace="~{fragments/footer :: footer}"></div>
 
 <script th:src="@{/js/login.js}"></script>
@@ -97,7 +97,7 @@
             'July','August','September','October','November','December'
         ];
 
-        // DOM refs
+
         const grid = document.getElementById('calendarGrid');
         const monthYear = document.getElementById('calMonthYear');
         const prevBtn = document.getElementById('prevMonth');
@@ -107,7 +107,7 @@
         const sidebarCount = document.getElementById('sidebarCount');
         const sidebarEvents = document.getElementById('sidebarEvents');
 
-        // Fetch events from API
+
         async function fetchEvents() {
             try {
                 const res = await fetch('/api/calendar/events');
@@ -142,14 +142,14 @@
 
             grid.innerHTML = '';
 
-            // Previous month trailing days
+
             for (let i = firstDay - 1; i >= 0; i--) {
                 const day = daysInPrev - i;
                 const cell = createDayCell(day, true, '');
                 grid.appendChild(cell);
             }
 
-            // Current month days
+
             for (let d = 1; d <= daysInMonth; d++) {
                 const dateStr = formatDateStr(year, month, d);
                 const isToday = dateStr === todayStr;
@@ -159,7 +159,7 @@
                 grid.appendChild(cell);
             }
 
-            // Next month leading days
+
             const totalCells = grid.children.length;
             const remaining = (7 - (totalCells % 7)) % 7;
             for (let i = 1; i <= remaining; i++) {
@@ -267,7 +267,7 @@
             });
         }
 
-        // Navigation
+
         prevBtn.addEventListener('click', function() {
             currentDate.setMonth(currentDate.getMonth() - 1);
             renderCalendar();
@@ -286,7 +286,7 @@
             showSidebarEvents(selectedDate);
         });
 
-        // Init
+
         fetchEvents();
     })();
 </script>

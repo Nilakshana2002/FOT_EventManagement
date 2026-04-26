@@ -8,7 +8,7 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* ═══ ADMIN CARD ═══ */
+
         .admin-card {
             background: var(--surface);
             padding: 34px;
@@ -49,7 +49,7 @@
             font-size: 0.95rem;
         }
 
-        /* ═══ FORM LABELS ═══ */
+
         .form-label {
             display: block;
             font-weight: 600;
@@ -64,7 +64,7 @@
             font-size: 0.78rem;
         }
 
-        /* ═══ FORM INPUTS ═══ */
+
         .admin-form input,
         .admin-form textarea,
         .admin-form select {
@@ -99,7 +99,7 @@
             min-height: 80px;
         }
 
-        /* ═══ STYLED SELECT ═══ */
+
         .select-wrapper {
             position: relative;
         }
@@ -124,7 +124,7 @@
             cursor: pointer;
         }
 
-        /* ═══ FILE INPUT ═══ */
+
         .file-upload-area {
             border: 2px dashed var(--divider);
             border-radius: var(--r-sm);
@@ -160,7 +160,7 @@
             background: none;
         }
 
-        /* ═══ FORM GRID ═══ */
+
         .form-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -169,7 +169,7 @@
         .form-grid .span-2 { grid-column: span 2; }
         .form-group { display: flex; flex-direction: column; }
 
-        /* ═══ SUBMIT BUTTON ═══ */
+
         .admin-form .btn-submit {
             background: linear-gradient(135deg, var(--pri), var(--pri-dark));
             color: white;
@@ -193,7 +193,7 @@
             transform: translateY(-2px);
         }
 
-        /* ═══ SUCCESS/ERROR ALERTS ═══ */
+
         .alert {
             padding: 14px 20px;
             border-radius: var(--r-sm);
@@ -234,7 +234,7 @@
         </div>
     </div>
 
-    <!-- Main Content -->
+
     <div class="main-content">
         <div class="header-section" style="margin-bottom: 30px;">
             <h1>Upcoming Events Management</h1>
@@ -242,7 +242,7 @@
         </div>
 
 
-        <!-- Success/Error Alerts -->
+
         <div th:if="${param.success}" class="alert alert-success">
             <i class="fas fa-check-circle"></i> Event published successfully!
         </div>

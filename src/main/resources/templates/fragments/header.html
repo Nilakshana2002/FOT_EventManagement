@@ -15,7 +15,7 @@
         </div>
     </div>
 
-    <!-- NAVIGATION -->
+
     <nav class="navbar">
         <a th:href="@{/}">HOME</a>
         <a th:href="@{/about}">ABOUT US</a>
@@ -28,7 +28,7 @@
         <a sec:authorize="isAuthenticated()" th:href="@{/logout}" style="color: var(--primary); font-weight: 700;">LOGOUT</a>
     </nav>
 
-    <!-- ═══════ LOGIN MODAL ═══════ -->
+
     <div id="loginModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeLogin()">&times;</span>
@@ -50,7 +50,7 @@
         </div>
     </div>
 
-    <!-- ═══════ SIGNUP MODAL ═══════ -->
+
     <div id="signupModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeSignup()">&times;</span>
@@ -65,7 +65,7 @@
                 <button type="button" id="btnStaff" onclick="showStaffForm()">Academic / Staff</button>
             </div>
 
-            <!-- REGISTRATION FORM -->
+
             <div id="registrationForm">
                 <form th:action="@{/signup}" method="post" onsubmit="return validateRegistration()">
                     <input type="hidden" name="usertype" id="usertype" value="STUDENT">
