@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book an Event | Event Management</title>
+    <link rel="icon" type="image/png" th:href="@{/images/logo1.png}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<!-- Header Fragment -->
+<div th:replace="~{fragments/header :: header}"></div>
+
+<div class="booking-page">
+    <div th:if="${param.error}" class="error-msg" style="max-width: 600px; margin: 0 auto 20px; padding: 15px; border-radius: 8px; background: #fff5f5; border: 1px solid #feb2b2; color: #c53030; text-align: center;">
+        <p th:if="${param.error[0] == 'pastDate'}">Error: You cannot book a venue for a past date.</p>
+        <p th:if="${param.error[0] == 'conflict'}">Error: The selected venue is already booked for this date and time slot.</p>
+        <p th:if="${param.error[0] == 'true'}">Error: Something went wrong. Please try again.</p>
+    </div>
+    <h1 th:text="${selectedEvent != null ? 'Register for ' + selectedEvent.title : 'Request a Venue Booking'}">Request a Venue Booking</h1>
+    <p th:if="${selectedEvent == null}" style="text-align: center; color: var(--text-secondary); margin-bottom: 10px;">
+        Fill out the form below to request a venue. Our admin team will review and respond shortly.
+    </p>
+
+
+    <div th:if="${selectedEvent != null}" class="event-summary-card" style="max-width: 600px; margin: 0 auto 30px; background: white; padding: 20px; border-radius: 12px; border: 1px solid #eee; display: flex; gap: 20px; align-items: center;">
+        <img th:src="@{'/images/' + ${selectedEvent.imageName}}" style="width: 100px; height: 100px; object-fit: cover; border-radius: 8px;">
+        <div>
+            <h3 th:text="${selectedEvent.title}" style="color: var(--primary); margin-bottom: 5px;"></h3>
+            <p style="font-size: 0.9rem; color: var(--text-secondary);">
+                <span th:text="${selectedEvent.eventDate}"></span> |
+                <span th:text="${selectedEvent.time}"></span> |
+                <span th:text="${selectedEvent.venue}"></span>
+            </p>
+        </div>
+    </div>
+
+    <div class="booking-card">
+        <form th:action="@{/booking/save}" method="post">
+            <input type="hidden" name="eventId" th:if="${selectedEvent != null}" th:value="${selectedEvent.id}">
+
+            <div th:if="${selectedEvent == null}">
+                <label>Select Venue</label>
+                <select name="venueId" required>
+                    <option value="" disabled selected>— Choose a venue —</option>
+                    <option th:each="v : ${venues}" th:value="${v.id}"
+                            th:text="${v.name + '  (Capacity: ' + v.capacity + ')'}"></option>
+                </select>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div>
+                    <label>Registration/Booking Date</label>
+                    <input type="date" name="bookingDate" required 
+                           th:value="${selectedEvent != null ? selectedEvent.eventDate : ''}"
+                           th:readonly="${selectedEvent != null}">
+                </div>
+                <div>
+                    <label>Time Slot</label>
+                    <select name="timeSlot" required th:if="${selectedEvent == null}">
+                        <option value="Morning (8 AM - 12 PM)">Morning (8 AM – 12 PM)</option>
+                        <option value="Afternoon (1 PM - 5 PM)">Afternoon (1 PM – 5 PM)</option>
+                        <option value="Evening (6 PM - 10 PM)">Evening (6 PM – 10 PM)</option>
+                        <option value="Full Day">Full Day</option>
+                    </select>
+                    <input type="text" name="timeSlot" th:if="${selectedEvent != null}" 
+                           th:value="${selectedEvent.time}" readonly>
+                </div>
+            </div>
+
+            <label>Additional Message <span style="color: var(--text-muted); font-weight: 400;">(Optional)</span></label>
+            <textarea name="message" rows="4" placeholder="Tell us about your event or special requirements…"
+                      style="resize: vertical;"></textarea>
+
+            <button type="submit" th:text="${selectedEvent != null ? 'Confirm Registration →' : 'Submit Booking Request →'}">Submit Booking Request →</button>
+        </form>
+    </div>
+</div>
+
+<!-- Footer Fragment -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<script th:src="@{/js/login.js}"></script>
+</body>
+</html>
